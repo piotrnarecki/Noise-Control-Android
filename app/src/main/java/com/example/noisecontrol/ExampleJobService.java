@@ -21,7 +21,7 @@ public class ExampleJobService extends JobService {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                for (int i = 0; i < 10; i++) {
+                for (int i = 0; i < 100; i++) {
                     Log.d(TAG, "run: " + i);
                     if (jobCancelled) {
                         return;
