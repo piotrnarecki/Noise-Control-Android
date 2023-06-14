@@ -5,4 +5,18 @@ public class SoundProcessor {
 
 
 
+    public void invertPhase(){
+
+
+
+    }
+
+
+
+        String audioName;
+
+
+
+
+
 }

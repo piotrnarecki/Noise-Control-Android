@@ -29,6 +29,30 @@
         android:textAlignment="center"
         android:textSize="18sp" />
 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="top"
+        android:layout_marginTop="50dp"
+        android:orientation="vertical"
+        android:layout_centerHorizontal="true"
+        tools:context="com.codinginflow.jobschedulerexample.MainActivity">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="scheduleJob"
+            android:text="Schedule Job" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="cancelJob"
+            android:text="Cancel Job" />
+
+    </LinearLayout>
+
     <!--Linear Layout for adding textviews
         in horizontal manner-->
     <LinearLayout
