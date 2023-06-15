@@ -44,6 +44,11 @@ public class MainActivity extends AppCompatActivity {
 
     private volatile boolean stopThread = false;
 
+
+    //my solution
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -109,18 +114,11 @@ public class MainActivity extends AppCompatActivity {
 
     //metody dla przyciskow dla background
     public void scheduleJob(View v) {
-        ComponentName componentName = new ComponentName(this, ExampleJobService.class);
+        ComponentName componentName = new ComponentName(this, BackgroundThreadsService.class);
         JobInfo info = new JobInfo.Builder(123, componentName)
                 .setPersisted(true)
                 .setPeriodic(15 * 60 * 1000)
                 .build();
-
-
-        //.setRequiresCharging(true)
-        //                .setRequiredNetworkType(JobInfo.NETWORK_TYPE_UNMETERED)
-        //                .setPersisted(true)
-        //                .setPeriodic(15 * 60 * 1000)
-        //                .build();
 
         JobScheduler scheduler = (JobScheduler) getSystemService(JOB_SCHEDULER_SERVICE);
         int resultCode = scheduler.schedule(info);

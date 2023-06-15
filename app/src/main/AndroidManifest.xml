@@ -30,7 +30,7 @@
         </activity>
 
         <service
-        android:name=".ExampleJobService"
+        android:name=".BackgroundThreadsService"
         android:permission="android.permission.BIND_JOB_SERVICE" />
 
     </application>
