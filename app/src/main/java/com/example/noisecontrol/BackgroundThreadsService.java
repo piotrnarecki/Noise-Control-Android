@@ -38,22 +38,29 @@ public class BackgroundThreadsService extends JobService {
                         return;
                     }
 
-                    soundManager.playSound1();
+                    //soundManager.playSound1();
 
+                    soundManager.startRecording();
 
                     try {
-                        Thread.sleep(1000);
+                        Thread.sleep(2000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
 
-                    soundManager.playSound2();
+                    soundManager.pauseRecording();
+                    //soundManager.playSound2();
+                    soundManager.playAudio();
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
 
-
-
+                    soundManager.pausePlaying();
                 }
 
-                soundManager.stopSounds();
+                //soundManager.stopSounds();
 
                 Log.d(TAG, "Job finished");
                 jobFinished(params, false);
@@ -70,5 +77,9 @@ public class BackgroundThreadsService extends JobService {
         jobCancelled = true;
         return true;
     }
+
+
+
+
 }
 
