@@ -14,7 +14,6 @@ import androidx.core.app.ActivityCompat;
 import com.example.noisecontrol.MainActivity;
 import com.example.noisecontrol.R;
 
-import java.io.File;
 import java.io.IOException;
 
 public class SoundManager {
@@ -126,7 +125,13 @@ public class SoundManager {
         mediaPlayer = new MediaPlayer();
         try {
 
-            mediaPlayer.setDataSource(recordingFilename);
+            //mediaPlayer.setDataSource(recordingFilename);
+
+            //
+            WavRecorder wavRecorder = new WavRecorder(recordingFilename);
+
+            mediaPlayer.setDataSource(Environment.getExternalStorageDirectory().getPath()+"/final_record.wav");
+            ///
 
             mediaPlayer.prepare();
 
@@ -162,6 +167,12 @@ public class SoundManager {
         mediaPlayer = null;
 
     }
+
+    ////WAV
+
+
+
+
 
 
 }
