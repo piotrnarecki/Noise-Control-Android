@@ -14,6 +14,7 @@ import androidx.core.app.ActivityCompat;
 import com.example.noisecontrol.MainActivity;
 import com.example.noisecontrol.R;
 
+import java.io.File;
 import java.io.IOException;
 
 public class SoundManager {
@@ -23,13 +24,6 @@ public class SoundManager {
 
     private Context context;
 
-    public MediaRecorder getMediaRecorder() {
-        return mediaRecorder;
-    }
-
-    public MediaPlayer getMediaPlayer() {
-        return mediaPlayer;
-    }
 
 
     //RECORDING
@@ -37,6 +31,8 @@ public class SoundManager {
     // creating a variable for media recorder object class.
     private MediaRecorder mediaRecorder;
     private MediaPlayer mediaPlayer;
+
+    private SoundProcessor soundProcessor;
 
     private static String recordingFilename = null;
     public static final int REQUEST_AUDIO_PERMISSION_CODE = 1;
@@ -46,6 +42,8 @@ public class SoundManager {
         this.context = context;
         mp1 = MediaPlayer.create(context, R.raw.piano1);
         mp2 = MediaPlayer.create(context, R.raw.piano2);
+
+        this.soundProcessor=new SoundProcessor();
 
 //        mediaRecorder=new MediaRecorder();
 //        mediaPlayer=new MediaPlayer();
@@ -84,10 +82,14 @@ public class SoundManager {
 
         if (true) {
             recordingFilename = Environment.getExternalStorageDirectory().getAbsolutePath();
-            recordingFilename += "/AudioRecording.3gp";
+            recordingFilename += "/AudioRecording.wav";
 
             mediaRecorder = new MediaRecorder();
-            mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+//            mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+
+            mediaRecorder.setAudioSource(MediaRecorder.AudioSource.DEFAULT);//mikrofon ze sluchawek
+
+
             mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
 
             mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
@@ -140,6 +142,16 @@ public class SoundManager {
         mediaRecorder.stop();
 
         mediaRecorder.release();
+
+
+///
+        try {
+            soundProcessor.processFile(recordingFilename);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+///
+
 
         mediaRecorder = null;
     }

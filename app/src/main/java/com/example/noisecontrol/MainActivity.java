@@ -125,6 +125,9 @@ public class MainActivity extends AppCompatActivity {
             Log.d(TAG, "Job scheduled");
 
             System.out.println("WORKING");
+
+            statusTV.setText("Recording ...");
+
         } else {
             Log.d(TAG, "Job scheduling failed");
         }
@@ -136,6 +139,8 @@ public class MainActivity extends AppCompatActivity {
         JobScheduler scheduler = (JobScheduler) getSystemService(JOB_SCHEDULER_SERVICE);
         scheduler.cancel(123);
         Log.d(TAG, "Job cancelled");
+        statusTV.setText("Cancelled");
+
     }
 
 

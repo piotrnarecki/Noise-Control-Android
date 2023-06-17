@@ -11,6 +11,8 @@ public class BackgroundThreadsService extends JobService {
     private static final String TAG = "ExampleJobService";
     private boolean jobCancelled = false;
 
+    private int time = 500; // czas w ms
+
     private SoundManager soundManager;
 
     @Override
@@ -43,7 +45,7 @@ public class BackgroundThreadsService extends JobService {
                     soundManager.startRecording();
 
                     try {
-                        Thread.sleep(2000);
+                        Thread.sleep(time);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -52,7 +54,7 @@ public class BackgroundThreadsService extends JobService {
                     //soundManager.playSound2();
                     soundManager.playAudio();
                     try {
-                        Thread.sleep(2000);
+                        Thread.sleep(time);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
