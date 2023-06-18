@@ -12,7 +12,11 @@ public class BackgroundThreadsService extends JobService {
     private static final String TAG = "ExampleJobService";
     private boolean jobCancelled = false;
 
-    private int time = 400;
+
+    private ProcessingSettings processingSettings= ProcessingSettings.getInstance();
+
+    private int time = processingSettings.getTime();
+
 
     private SoundPlayer soundPlayer;
     private SoundRecorder soundRecorder;
