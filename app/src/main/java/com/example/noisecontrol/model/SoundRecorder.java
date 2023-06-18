@@ -1,5 +1,6 @@
 package com.example.noisecontrol.model;
 
+import android.annotation.SuppressLint;
 import android.media.AudioFormat;
 import android.media.AudioRecord;
 import android.media.MediaRecorder;
@@ -8,13 +9,12 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-public class WavRecorder {
+//https://github.com/vishwakneelamegam
+public class SoundRecorder {
 
     String filePath = null;
     String tempRawFile = "temp_record.raw";
     String tempWavFile = "final_record.wav";
-
-//    Environment.getExternalStorageDirectory().getPath()+"/final_record.wav"
 
     final int bpp = 16;
     int sampleRate = 44100;
@@ -25,7 +25,7 @@ public class WavRecorder {
     Thread recordingThread;
     boolean isRecording = false;
 
-    public WavRecorder(String path) {
+    public SoundRecorder(String path) {
         try {
             filePath = path;
             bufferSize = AudioRecord.getMinBufferSize(8000, AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT);
@@ -141,6 +141,7 @@ public class WavRecorder {
         }
     }
 
+    @SuppressLint("MissingPermission")
     public void startRecording() {
         try {
 

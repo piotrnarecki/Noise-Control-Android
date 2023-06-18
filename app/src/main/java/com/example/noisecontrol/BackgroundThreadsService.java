@@ -5,32 +5,30 @@ import android.app.job.JobService;
 import android.os.Environment;
 import android.util.Log;
 
-import com.example.noisecontrol.model.SoundManager;
-import com.example.noisecontrol.model.WavRecorder;
+import com.example.noisecontrol.model.SoundPlayer;
+import com.example.noisecontrol.model.SoundRecorder;
 
-///Ta klasa steruje watkami do nagrywania dzieku
 public class BackgroundThreadsService extends JobService {
     private static final String TAG = "ExampleJobService";
     private boolean jobCancelled = false;
 
-    private int time = 500; // czas w ms
+    private int time = 400;
 
-    private SoundManager soundManager;
-    private WavRecorder wavRecorder;
+    private SoundPlayer soundPlayer;
+    private SoundRecorder soundRecorder;
 
     @Override
     public boolean onStartJob(JobParameters params) {
         Log.d(TAG, "Job started");
 
-        soundManager=new SoundManager(this);
-        wavRecorder = new WavRecorder(Environment.getExternalStorageDirectory().getPath());
+        soundPlayer = new SoundPlayer(this);
+        soundRecorder = new SoundRecorder(Environment.getExternalStorageDirectory().getPath());
 
         doBackgroundWork(params);
 
 
         return true;
     }
-
 
 
     private void doBackgroundWork(final JobParameters params) {
@@ -44,12 +42,7 @@ public class BackgroundThreadsService extends JobService {
                         return;
                     }
 
-                    //soundManager.playSound1();
-
-                  //  soundManager.startRecording();
-
-wavRecorder.startRecording();
-
+                    soundRecorder.startRecording();
 
                     try {
                         Thread.sleep(time);
@@ -57,23 +50,17 @@ wavRecorder.startRecording();
                         e.printStackTrace();
                     }
 
-                  //  soundManager.pauseRecording();
+                    soundRecorder.stopRecording();
+                    soundPlayer.playAudio();
 
-                    wavRecorder.stopRecording();
-
-
-                    //soundManager.playSound2();
-                    soundManager.playAudio();
                     try {
                         Thread.sleep(time);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
 
-                    soundManager.pausePlaying();
+                    soundPlayer.pausePlaying();
                 }
-
-                //soundManager.stopSounds();
 
                 Log.d(TAG, "Job finished");
                 jobFinished(params, false);
@@ -81,26 +68,12 @@ wavRecorder.startRecording();
         }).start();
     }
 
-
-
-
     @Override
     public boolean onStopJob(JobParameters params) {
         Log.d(TAG, "Job cancelled before completion");
         jobCancelled = true;
         return true;
     }
-
-//////////
-
-//    private boolean checkWritePermission() {
-//        int result1 = ContextCompat.checkSelfPermission(getApplicationContext(), WRITE_EXTERNAL_STORAGE);
-//        int result2 = ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.RECORD_AUDIO);
-//        return result1 == PackageManager.PERMISSION_GRANTED && result2 == PackageManager.PERMISSION_GRANTED ;
-//    }
-//    private void requestWritePermission() {
-//        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO,Manifest.permission.MODIFY_AUDIO_SETTINGS,WRITE_EXTERNAL_STORAGE},1);
-//    }
 
 
 }

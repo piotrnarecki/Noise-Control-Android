@@ -1,20 +1,12 @@
 package com.example.noisecontrol;
 
-import static android.Manifest.permission.RECORD_AUDIO;
-import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
 import android.app.job.JobInfo;
 import android.app.job.JobScheduler;
 import android.content.ComponentName;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-
-import android.media.MediaPlayer;
-import android.media.MediaRecorder;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -22,42 +14,15 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    // Initializing all variables..
     private TextView startTV, stopTV, playTV, stopplayTV, statusTV;
-
-    // creating a variable for media recorder object class.
-    private MediaRecorder mRecorder;
-
-    // creating a variable for mediaplayer class
-    private MediaPlayer mPlayer;
-
-    // string variable is created for storing a file name
-    private static String mFileName = null;
-
-    // constant for storing audio permission
     public static final int REQUEST_AUDIO_PERMISSION_CODE = 1;
-
-    ////backgroind task
-
     private static final String TAG = "MainActivity";
-
-
-    private static MainActivity instance;
-
-    public static MainActivity getInstance() {
-        return instance;
-    }
-
-
-    //my solution
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // initialize all variables with their layout items.
         statusTV = findViewById(R.id.idTVstatus);
         startTV = findViewById(R.id.btnRecord);
         stopTV = findViewById(R.id.btnStop);
@@ -110,8 +75,6 @@ public class MainActivity extends AppCompatActivity {
 
 //background
 
-
-    //metody dla przyciskow dla background
     public void scheduleJob(View v) {
         ComponentName componentName = new ComponentName(this, BackgroundThreadsService.class);
         JobInfo info = new JobInfo.Builder(123, componentName)
@@ -163,13 +126,6 @@ public class MainActivity extends AppCompatActivity {
                 }
                 break;
         }
-    }
-
-    public boolean CheckPermissions() {
-        // this method is used to check permission
-        int result = ContextCompat.checkSelfPermission(getApplicationContext(), WRITE_EXTERNAL_STORAGE);
-        int result1 = ContextCompat.checkSelfPermission(getApplicationContext(), RECORD_AUDIO);
-        return result == PackageManager.PERMISSION_GRANTED && result1 == PackageManager.PERMISSION_GRANTED;
     }
 
 
